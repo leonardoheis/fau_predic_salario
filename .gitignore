@@ -1,4 +1,72 @@
-# Byte-compiled / optimized Python files
+# -------------------------------
+# Python byte‐compiled / optimized
+# -------------------------------
 __pycache__/
 *.py[cod]
 *$py.class
+
+# -------------------------------
+# Virtual environments
+# -------------------------------
+.env/
+.venv/
+env/
+venv/
+ENV/
+
+# -------------------------------
+# Jupyter Notebook
+# -------------------------------
+.ipynb_checkpoints/
+
+# -------------------------------
+# IDE / Editor
+# -------------------------------
+.vscode/
+.idea/
+
+# -------------------------------
+# Operating system
+# -------------------------------
+.DS_Store
+Thumbs.db
+
+# -------------------------------
+# Logs and reports
+# -------------------------------
+*.log
+reports/*.html      # remove if you DO want to version your final reports
+htmlcov/
+
+# -------------------------------
+# Test / Coverage
+# -------------------------------
+.coverage
+.pytest_cache/
+
+# -------------------------------
+# MLflow (if you ever track experiments)
+# -------------------------------
+mlruns/
+
+# -------------------------------
+# Persistent data / artifacts
+# -------------------------------
+# (uncomment if you don't want to commit raw data)
+# data/*.csv
+# data/*.parquet
+
+# Model binaries
+models/*.pkl
+models/*.joblib
+
+# -------------------------------
+# FastAPI / Streamlit
+# -------------------------------
+# streamlit temp files
+.streamlit/
+
+# Front-end (if you add any JS)
+node_modules/
+dist/
+build/
