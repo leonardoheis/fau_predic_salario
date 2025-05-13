@@ -83,8 +83,11 @@ def plot_distributions(df):
     sns.histplot(df["Years of Experience"], bins=20, kde=True, ax=axes[2])
     axes[2].set_title("Years of Experience")
 
-    sns.histplot(df["Salary_log"], bins=30, kde=True, ax=axes[3])
-    axes[3].set_title("ln(Salary)")
+    # sns.histplot(df["Salary_log"], bins=30, kde=True, ax=axes[3])
+    # axes[3].set_title("ln(Salary)")
+    
+    sns.histplot(df["Salary"], bins=30, kde=True, ax=axes[3])
+    axes[3].set_title("Salary")
 
     plt.tight_layout()
     plt.show()
@@ -125,3 +128,71 @@ def percentage_rows_missing_data(df):
     total_rows = len(df)
     percentage = (rows_with_missing_data / total_rows) * 100
     return percentage
+
+def print_df_overview(df, name="DataFrame"):
+    """
+    Prints basic information about a DataFrame: number of rows/columns and data types.
+
+    Args:
+        df (pd.DataFrame): Input DataFrame.
+        name (str): Label to identify the DataFrame in output.
+    """
+
+    print("\n dtype:")
+    print(df.dtypes)
+    
+def count_job_titles(df, threshold):
+    """
+    Displays the count of job titles that appear more than a given threshold.
+
+    Args:
+        df (pd.DataFrame): DataFrame with a 'Job Title' column.
+        threshold (int): Minimum number of appearances to be considered.
+    """
+
+    job_counts = df["Job Title"].value_counts()
+    titles_above_N = job_counts[job_counts > threshold]
+    total_rows_above_N = titles_above_N.sum()
+
+    print(f"\n Amount of rows with job titles that appear more than {threshold} times: {total_rows_above_N}")
+    print(f" Job Titles with more than {threshold} repetitions:\n{titles_above_N}")
+    
+def plot_salary_by_gender(df):
+    """
+    Plots a boxplot to visualize salary distribution across genders.
+    
+    Args:
+        df (pd.DataFrame): Cleaned DataFrame with 'Gender' and 'Salary'.
+    """
+    plt.figure(figsize=(8,5))
+    sns.boxplot(x="Gender", y="Salary", data=df)
+    plt.title("Salary Distribution by Gender")
+    plt.ylabel("Salary")
+    plt.xlabel("Gender")
+    plt.show()
+
+def gender_salary_stats(df):
+    """
+    Prints mean salary and count per gender.
+    
+    Args:
+        df (pd.DataFrame): Cleaned DataFrame with 'Gender' and 'Salary'.
+    """
+    grouped = df.groupby("Gender")["Salary"].agg(["count", "mean", "median"])
+    print("Salary stats by gender:")
+    print(grouped)
+    
+
+def plot_kde_salary_by_gender(df):
+    """
+    Plots KDE curves to compare salary distributions between genders.
+    """
+    plt.figure(figsize=(8,5))
+    sns.kdeplot(data=df, x="Salary", hue="Gender", fill=True)
+    plt.title("Salary distribution by Gender")
+    plt.xlabel("Salary")
+    plt.ylabel("Count")
+    plt.show()
+    print("Note: If the KDE appears to go below zero, it is a plotting artifact. Actual density values are not negative.")
+
+
