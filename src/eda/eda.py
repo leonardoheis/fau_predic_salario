@@ -72,7 +72,7 @@ def plot_distributions(df):
         df (pd.DataFrame): DataFrame that includes those columns.
     """
 
-    fig, axes = plt.subplots(1, 4, figsize=(18, 5))
+    fig, axes = plt.subplots(1, 3, figsize=(18, 5))
 
     sns.histplot(df["Salary"], bins=30, kde=True, ax=axes[0])
     axes[0].set_title("Salary")
@@ -85,9 +85,6 @@ def plot_distributions(df):
 
     # sns.histplot(df["Salary_log"], bins=30, kde=True, ax=axes[3])
     # axes[3].set_title("ln(Salary)")
-    
-    sns.histplot(df["Salary"], bins=30, kde=True, ax=axes[3])
-    axes[3].set_title("Salary")
 
     plt.tight_layout()
     plt.show()
