@@ -55,7 +55,7 @@ def create_plots(columns, plot_func, n_cols=3):
     fig, axes = plt.subplots(n_rows, n_cols, figsize=(6 * n_cols, 4 * n_rows))
 
     axes = np.ravel(axes) if isinstance(axes, np.ndarray) else [axes]
-
+    print(axes)
     for i, col in enumerate(columns):
         plot_func(col, axes[i])
         axes[i].set_title(f'Distribution of {col}', fontsize=12)
