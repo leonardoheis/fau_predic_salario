@@ -19,7 +19,7 @@ class FeatureEngineer(BaseEstimator, TransformerMixin):
     4. Drops the original 'Job Title' column as it's replaced with engineered features
     """
     def __init__(self):
-        super().__init__()
+        pass
     
     def fit(self, X, y=None):
         # Fit method is not needed for this transformer
@@ -118,11 +118,28 @@ def create_preprocessor() -> ColumnTransformer:
     ColumnTransformer
         Configured ColumnTransformer with all preprocessing steps.
     """
-    return ColumnTransformer([
-        ('ordinal', OrdinalEncoder(categories=[["Bachelor's", "Master's", "PhD"]]), ['Education Level']),
-        ('onehot', OneHotEncoder(handle_unknown='ignore'), ['Gender', 'Seniority', 'Role_family']),
-        ('scaler', StandardScaler(), ['Age', 'Years of Experience', 'Exp_education'])
-    ])
+    # return ColumnTransformer([
+    #     ('ordinal', OrdinalEncoder(categories=[["Bachelor's", "Master's", "PhD"]]), ['Education Level']),
+    #     ('onehot', OneHotEncoder(handle_unknown='ignore'), ['Gender', 'Seniority', 'Role_family']),
+    #     ('scaler', StandardScaler(), ['Age', 'Years of Experience', 'Exp_education'])
+    # ])
+    ct = ColumnTransformer(
+        transformers=[
+            ("ord_edu",
+             OrdinalEncoder(categories=[["Bachelor's","Master's","PhD"]]),
+             ["Education Level"]),
+            ("ohe",
+             OneHotEncoder(handle_unknown="ignore", sparse_output=False),
+             ["Gender","Seniority","Role_family"]),
+            ("scale",
+             StandardScaler(),
+             ["Age","Years of Experience","Exp_education"]),
+        ],
+        remainder="passthrough",           # <— carry through id, Description, Salary, etc.
+        verbose_feature_names_out=False,
+    )
+    # crucial: ask it to return a DataFrame
+    return ct.set_output(transform="pandas")
 
 def build_pipeline() -> Pipeline:
     """Builds the complete preprocessing pipeline
