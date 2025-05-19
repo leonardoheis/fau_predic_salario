@@ -134,17 +134,17 @@ def evaluate_model(model, X_test, y_test, show_examples=True, baseline=True):
     print("----------------------------------")
     print(" Model Evaluation Summary:")
     print("----------------------------------")
-    print(f" MAE: ${mae:,.2f} (on average, predictions deviate this much from actual salaries)")
+    print(f"MAE: ${mae:,.2f} (on average, predictions deviate this much from actual salaries)")
     print(f"95% Confidence Interval for MAE: ${mae_ci[0]:,.2f} – ${mae_ci[1]:,.2f}\n")
 
     print(f"RMSE: ${rmse:,.2f} ")
     print(f"95% Confidence Interval for RMSE: ${rmse_ci[0]:,.2f} – ${rmse_ci[1]:,.2f}\n")
     
     print(f"MAPE: {mape:.2%} ")
-    print(f"(95% Confidence Interval for MAPE: {mape_ci[0]:.2%} – {mape_ci[1]:.2%})\n")
+    print(f"95% Confidence Interval for MAPE: {mape_ci[0]:.2%} – {mape_ci[1]:.2%}\n")
     
     print(f"R²  : {r2:.3f} ")
-    print(f"(95% Confidence Interval for R²: {r2_ci[0]:.3f} – {r2_ci[1]:.3f})\n")
+    print(f"95% Confidence Interval for R²: {r2_ci[0]:.3f} – {r2_ci[1]:.3f}\n")
 
     '''
     #ONLY for testing purposes
@@ -173,6 +173,8 @@ def evaluate_model(model, X_test, y_test, show_examples=True, baseline=True):
     print(f" RMSE (Dummy): ${dummy_rmse:,.2f}  -  Improvement: ${improvement_rmse:,.2f}")
     print(f" MAPE (Dummy): {dummy_mape:.2%}  —  Improvement: {improvement_mape:.2%}")
     print(f" R² (Dummy): {dummy_r2:.3f}  —  Improvement: {improvement_r2:.3f}")
+    
+    return y_pred_real
 
 def bootstrap_metrics(y_true, y_pred, metric_fn, n_bootstrap=1000, ci=95):
     """
