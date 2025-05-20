@@ -129,7 +129,7 @@ def evaluate_model(model, X_test, y_test, show_examples=True, baseline=True):
                        lambda y, yhat: np.sqrt(mean_squared_error(y, yhat)))
     mape_ci = bootstrap_metrics(y_test_real.values, y_pred_real, mean_absolute_percentage_error)
     r2_ci   = bootstrap_metrics(y_test_real.values, y_pred_real, r2_score)
-   
+
     print("\n performance on test:")
     print("----------------------------------")
     print(" Model Evaluation Summary:")

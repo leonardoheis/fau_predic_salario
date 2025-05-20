@@ -45,7 +45,11 @@ class PredictionResponse(BaseModel):
     """
     predicted_salary: float
     confidence_interval: List[float]
-    
+
+pipeline      = joblib.load("models/preprocessor.joblib")
+model         = joblib.load("models/et_model.joblib")
+sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
+   
 @app.post("/predict", response_model=PredictionResponse)
 async def predict_salary(data: InputData):
     """Predict salary based on input features.
