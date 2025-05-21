@@ -14,7 +14,6 @@ def boxplots(data, numerical_cols):
     Creates boxplots for the specified numerical columns with mean lines.
 
     Parameters
-    ----------
     data : pd.DataFrame
         The dataset containing the variables to visualize.
     numerical_cols : list of str
@@ -43,7 +42,6 @@ def create_plots(columns, plot_func, n_cols=3):
     Creates a grid of subplots and applies a plotting function to each column.
 
     Parameters
-    ----------
     columns : list of str
         List of column names to plot.
     plot_func : function
@@ -74,7 +72,6 @@ def scatterplot(df: pd.DataFrame, target: str = 'Salary', exclude: list = None):
     Creates a grid of scatterplots showing the relationship between each feature and the target.
 
     Parameters
-    ----------
     df : pd.DataFrame
         DataFrame containing the features and target.
     target : str
@@ -107,7 +104,6 @@ def plot_shap_feature_importance(model, X_test_final, X_test, embedding_prefix='
     Computes and plots SHAP feature importances, grouping embedding features.
 
     Parameters
-    ----------
     model : trained model
         A fitted tree-based model compatible with SHAP.
     X_test_final : np.ndarray
@@ -147,7 +143,6 @@ def plot_shap_feature_importance_no_embeddings(model, X_test_final, X_test, plot
     Computes and plots SHAP feature importances, EXCLUDING embedding features.
 
     Parameters
-    ----------
     model : trained model
         A fitted tree-based model compatible with SHAP.
     X_test_final : np.ndarray

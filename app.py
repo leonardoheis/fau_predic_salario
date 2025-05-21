@@ -17,6 +17,15 @@ app = FastAPI(
     version="1.0.0"
 )
 
+# Load models with version checking
+try:
+    pipeline       = joblib.load("./model/preprocessing_pipeline.pkl")
+    model          = joblib.load("./model/salary_model.pkl")
+    sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
+    logger.info("All models loaded successfully")
+except Exception as e:
+    logger.error(f"Failed to load models: {str(e)}")
+    raise RuntimeError(f"Model loading failed. Please check scikit-learn versions match between training and serving. Error: {str(e)}")
 
 class InputData(BaseModel):
     """Input data model for salary prediction.
@@ -46,10 +55,7 @@ class PredictionResponse(BaseModel):
     predicted_salary: float
     confidence_interval: List[float]
 
-pipeline      = joblib.load("models/preprocessor.joblib")
-model         = joblib.load("models/et_model.joblib")
-sentence_model = SentenceTransformer("all-MiniLM-L6-v2")
-   
+
 @app.post("/predict", response_model=PredictionResponse)
 async def predict_salary(data: InputData):
     """Predict salary based on input features.
@@ -62,7 +68,7 @@ async def predict_salary(data: InputData):
         
     Raises:
         HTTPException: 400 Bad Request if prediction fails due to invalid input
-                      or processing error
+        or processing error
     """
     try:
         input_df = pd.DataFrame([{
