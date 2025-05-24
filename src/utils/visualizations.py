@@ -67,36 +67,36 @@ def create_plots(columns, plot_func, n_cols=3):
     plt.show()
 
 
-def scatterplot(df: pd.DataFrame, target: str = 'Salary', exclude: list = None):
-    """
-    Creates a grid of scatterplots showing the relationship between each feature and the target.
+# def scatterplot(df: pd.DataFrame, target: str = 'Salary', exclude: list = None):
+#     """
+#     Creates a grid of scatterplots showing the relationship between each feature and the target.
 
-    Parameters
-    df : pd.DataFrame
-        DataFrame containing the features and target.
-    target : str
-        Name of the target column.
-    exclude : list of str, optional
-        List of columns to exclude from the plots.
-    """
-    if exclude is None:
-        exclude = ['id', 'Description', 'Job Title', target]
+#     Parameters
+#     df : pd.DataFrame
+#         DataFrame containing the features and target.
+#     target : str
+#         Name of the target column.
+#     exclude : list of str, optional
+#         List of columns to exclude from the plots.
+#     """
+#     if exclude is None:
+#         exclude = ['id', 'Description', 'Job Title', target]
 
-    cols = df.columns.difference(exclude)
-    n_cols = 2
-    n_rows = math.ceil(len(cols) / n_cols)
+#     cols = df.columns.difference(exclude)
+#     n_cols = 2
+#     n_rows = math.ceil(len(cols) / n_cols)
 
-    plt.figure(figsize=(6 * n_cols, 4 * n_rows))
-    for i, col in enumerate(cols):
-        plt.subplot(n_rows, n_cols, i + 1)
-        sns.scatterplot(data=df, x=col, y=target)
-        plt.title(f'{col} vs {target}')
-        plt.xlabel(col)
-        plt.ylabel(target)
-        plt.tight_layout()
+#     plt.figure(figsize=(6 * n_cols, 4 * n_rows))
+#     for i, col in enumerate(cols):
+#         plt.subplot(n_rows, n_cols, i + 1)
+#         sns.scatterplot(data=df, x=col, y=target)
+#         plt.title(f'{col} vs {target}')
+#         plt.xlabel(col)
+#         plt.ylabel(target)
+#         plt.tight_layout()
 
-    plt.suptitle(f'Relationship Between Features and Target ({target})', fontsize=16, y=1.02)
-    plt.show()
+#     plt.suptitle(f'Relationship Between Features and Target ({target})', fontsize=16, y=1.02)
+#     plt.show()
 
 
 def plot_shap_feature_importance(model, X_test_final, X_test, embedding_prefix='embedding_', plot_type='bar'):

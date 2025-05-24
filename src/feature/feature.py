@@ -135,7 +135,7 @@ def create_preprocessor() -> ColumnTransformer:
              StandardScaler(),
              ["Age","Years of Experience","Exp_education"]),
         ],
-        remainder="passthrough",           # <— carry through id, Description, Salary, etc.
+        #remainder="passthrough",           # <— carry through id, Description, Salary, etc.
         verbose_feature_names_out=False,
     )
     # crucial: ask it to return a DataFrame

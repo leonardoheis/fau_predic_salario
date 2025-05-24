@@ -6,6 +6,7 @@ import joblib
 from sentence_transformers import SentenceTransformer
 from typing import List
 import logging
+import traceback
 
 # Set up logging
 logging.basicConfig(level=logging.INFO)
@@ -38,6 +39,7 @@ class InputData(BaseModel):
         years_of_experience (float): Total years of professional experience
         description (str): Professional description or summary
     """
+    #id: int = 1
     age: float
     gender: str
     education_level: str
@@ -72,6 +74,7 @@ async def predict_salary(data: InputData):
     """
     try:
         input_df = pd.DataFrame([{
+            #'id': 1,
             'Age': data.age,
             'Gender': data.gender,
             'Education Level': data.education_level,
@@ -94,5 +97,6 @@ async def predict_salary(data: InputData):
         }
         
     except Exception as e:
-        logger.error(f"Prediction failed: {str(e)}")
-        raise HTTPException(status_code=400, detail=str(e))
+        tb = traceback.format_exc()
+        logger.error(f"Prediction failed: {str(tb)}")
+        raise HTTPException(status_code=400, detail=str(tb))
