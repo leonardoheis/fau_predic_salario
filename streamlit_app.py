@@ -75,7 +75,9 @@ def main():
             salary = result["predicted_salary"]
             ci_low, ci_high = result["confidence_interval"]
             st.success(f"🎯 Predicted salary: **${salary:,.0f}**")
-            st.info(f"💬 Confidence interval: [${ci_low:,.0f}, ${ci_high:,.0f}]")
-
+            st.info(f"💬 Confidence interval: [${ci_low:,.0f} — ${ci_high:,.0f}]")
+            st.balloons()
+                
+                
 if __name__ == "__main__":
     main()
