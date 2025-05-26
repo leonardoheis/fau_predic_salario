@@ -136,13 +136,23 @@ async def predict_salary(
         embeddings = sentence_model.encode(clean_description.tolist())
         final_features = np.hstack([processed_data, embeddings])
         
-        prediction = model.predict(final_features)[0]
-        confidence_interval = [prediction * 0.9, prediction * 1.1]
+        predictions_by_estimator = np.array([estimator.predict(final_features)[0] for estimator in model.estimators_])
+        length = len(predictions_by_estimator)
+        bootstrap_samples = int(1e5)
+        bootstrap_indexes = np.random.randint(0, length, size=(bootstrap_samples, length))
+        predictions = np.mean(predictions_by_estimator[bootstrap_indexes], axis=1) # could be median
+        
+        point_prediction = np.mean(predictions)
+        ci = 95
+        alpha = (100 - ci) / 2
+        predictions_lower_ci = np.percentile(predictions, alpha)
+        predictions_upper_ci = np.percentile(predictions, 100 - alpha)
+        confidence_interval = [predictions_lower_ci, predictions_upper_ci]
         
         return {
-            "predicted_salary": round(float(prediction), 2),
+            "predicted_salary": round(float(point_prediction), 2),
             "confidence_interval": [round(x, 2) for x in confidence_interval]
-        }
+        }        
         
     except Exception as e:
         tb = traceback.format_exc()

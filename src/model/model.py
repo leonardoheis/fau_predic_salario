@@ -109,7 +109,9 @@ def evaluate_model(model, X_test, y_test, show_examples=True, baseline=True):
         baseline (bool): Whether to compare against a DummyRegressor.
 
     Returns:
-        None
+        y_pred_real: Predicted real salaries.
+        resid_q_low: Lower quantile of residuals.
+        resid_q_high: Upper quantile of residuals.
     """
 
     #y_pred_log = model.predict(X_test)
@@ -147,7 +149,7 @@ def evaluate_model(model, X_test, y_test, show_examples=True, baseline=True):
     print(f"95% Confidence Interval for R²: {r2_ci[0]:.3f} – {r2_ci[1]:.3f}\n")
 
     '''
-    #ONLY for testing purposes
+    # ONLY for testing purposes
     if show_examples:
         print("\n Comparation of real salaries (test vs prediction):")
         for real, pred in zip(y_test_real[:5], y_pred_real[:5]):
